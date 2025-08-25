@@ -91,5 +91,5 @@ const uploadImage = async () => {
 
 // sendTemplateMessage()
 // sendTextMessage()
-// sendMediaMessage()
+sendMediaMessage()
 // uploadImage()
