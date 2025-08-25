@@ -1,5 +1,5 @@
 {
-  "name": "socialvault-marketplace",
+  "name": "Whatsapp_Integrtion",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
@@ -36,6 +36,7 @@
     "@types/xlsx": "^0.0.35",
     "axios": "^1.10.0",
     "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
     "cloudinary": "^2.6.1",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
