@@ -1,8 +1,10 @@
 import express from "express";
 import databaseConnect from "./config/database";
+import webhookRouter from './routes'
 
 const app = express()
 app.use(express.json())
+app.use('/api/v1', webhookRouter)
 
 const port = process.env.PORT;
 
