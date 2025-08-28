@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import databaseConnect from "./config/database";
 import webhookRouter from './routes'
 
@@ -7,6 +7,13 @@ app.use(express.json())
 app.use('/api/v1', webhookRouter)
 
 const port = process.env.PORT;
+
+app.get('/whatsapp_integration', (req: Request, res: Response) => {
+  res.status(200).json({
+    status: 'success',
+    message: 'Whatsapp Integration API is running'
+  });
+});
 
 const startServer = async (): Promise<void> => {
   await databaseConnect();
