@@ -3,8 +3,8 @@ import databaseConnect from "./config/database";
 import webhookRouter from './routes'
 import logger from 
 
-const app = express()
-app.use(express.json())
+const app = express();
+app.use(express.json());
 app.use('/api/v1', webhookRouter)
 
 const port = process.env.PORT;
