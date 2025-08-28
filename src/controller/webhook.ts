@@ -10,15 +10,15 @@ export const verifyWebhook = async (req: Request, res: Response) => {
         const { 'hub.mode': mode, 'hub.challenge': challenge, 'hub.verify_token': token } = req.query
 
         if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-            return res.status(200).json({
-                message: 'verification successfull',
-                data: challenge
-            })
-        }
-
-        res.status(400).json({
+            return res.status(400).json({
             message: "An error occoured"
         })
+        }
+        
+        res.status(200).json({
+             message: 'verification successfull',
+             data: challenge
+        })  
         
     } catch (error: any) {
         res.status(500).json({
