@@ -1,7 +1,6 @@
 import express, { Request, Response } from "express";
 import databaseConnect from "./config/database";
 import webhookRouter from './routes'
-import logger from 
 
 const app = express();
 app.use(express.json());
