@@ -10,6 +10,7 @@ export const verifyWebhook: RequestHandler = async (req, res) => {
         const { 'hub.mode': mode, 'hub.challenge': challenge, 'hub.verify_token': token } = req.query
 
         if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+            console.log('WEBHOOK VERIFIED');
             res.status(200).send(challenge)
             return;
         }
