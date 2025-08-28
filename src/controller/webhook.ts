@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { RequestHandler } from 'express'
 import dotenv from 'dotenv'
 dotenv.config()
 
