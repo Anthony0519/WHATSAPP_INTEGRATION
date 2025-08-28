@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import databaseConnect from "./config/database";
 import webhookRouter from './routes'
+import logger from 
 
 const app = express()
 app.use(express.json())
@@ -31,7 +32,7 @@ const gracefulShutdown = async () => {
     console.log('Server closed gracefully');
     process.exit(0);
   } catch (error) {
-    logger.error('Error during shutdown:', error);
+    console.error('Error during shutdown:', error);
     process.exit(1);
   }
 };
