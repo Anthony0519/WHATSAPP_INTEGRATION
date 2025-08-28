@@ -1,10 +1,10 @@
-import { RequestHandler } from 'express'
+import { Request, Response } from 'express'
 import dotenv from 'dotenv'
 dotenv.config()
 
 const VERIFY_TOKEN = process.env.WHATSAPP_TOKEN
 
-export const verifyWebhook: RequestHandler = async (req, res) => {
+export const verifyWebhook = async (req: Request, res: Response) => {
     try {
 
         const { 'hub.mode': mode, 'hub.challenge': challenge, 'hub.verify_token': token } = req.query
@@ -20,14 +20,14 @@ export const verifyWebhook: RequestHandler = async (req, res) => {
             message: "An error occoured"
         })
         
-    } catch (error) {
+    } catch (error: any) {
         res.status(500).json({
             message: `Server Error: ${error.message}`
         })
     }
 }
 
-export const webhook: RequestHandler = async (req, res) => {
+export const webhook = async (req: Request, res: Response) => {
     try {
 
         const body = req.body;
@@ -51,7 +51,7 @@ export const webhook: RequestHandler = async (req, res) => {
       }
     }
         
-    } catch (error) {
+    } catch (error: any) {
         res.status(500).json({
             message: `Server Error: ${error.message}`
         })
