@@ -44,16 +44,20 @@ export const webhook: RequestHandler = async (req, res) => {
           const btn = interactive.button_reply;
           // btn.id and btn.title available
           console.log('User clicked button:', btn.id, btn.title);
+          res.status(200).end();
         } else if (interactive.type === 'list_reply') {
           const list = interactive.list_reply;
           console.log('User selected list item:', list.id, list.title);
+          res.status(200).end();
         }
       } else if (message.type === 'text') {
         // text message payload can be message.text.body or message.text (depends)
         const text = (message as any).text?.body ?? (message as any).text;
         console.log('Text body:', text);
+        res.status(200).end();
       } else {
         console.log('Unhandled message type:', message.type);
+        res.status(200).end();
       }
     }
         
