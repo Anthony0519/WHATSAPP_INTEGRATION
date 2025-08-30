@@ -90,7 +90,7 @@ import bcrypt from 'bcrypt'
 //     console.log(res.data)
 // }
 
-const sendInteractiveMessage = async () => {
+const sendInteractiveListMessage = async () => {
     const res = await axios.post(
         'https://graph.facebook.com/v22.0/758418894023527/messages',
         {
@@ -113,17 +113,17 @@ const sendInteractiveMessage = async () => {
                     "button": "OPTIONS",
                     "sections": [
                         {
-                            "title": " ",
+                            "title": "Tony-codes",
                             "rows": [
                                 {
                                     "id": "#TC-1",
                                     "title": "Customer Support",
-                                    // "description": "This helps you with a friendly cusstomer support",
+                                    // "description": "This helps you with a friendly customer support",
                                 }
                             ]
                         },
                         {
-                            "title": " ",
+                            "title": "Tony-codes",
                             "rows": [
                                 {
                                     "id": "#TC-2",
@@ -146,11 +146,96 @@ const sendInteractiveMessage = async () => {
     console.log(res.data)
 }
 
+const sendInteractiveReplyButtonMessage = async () => {
+    const res = await axios.post(
+        'https://graph.facebook.com/v22.0/758418894023527/messages',
+        {
+            messaging_product: "whatsapp",
+            to: "2348104259226",
+            type: "interactive",
+            "interactive": {
+                "type": "button",
+                "header": {
+                    "type": "text",
+                    "text": "What type of Transfer do you want?"
+                },
+                "body": {
+                    "text": "Choose your option carefully"
+                },
+                // "footer": {
+                //     "text": "your-text-footer-content"
+                // },
+                "action": {
+                    "buttons": [
+                        {
+                            "type": "reply",
+                            "reply": {
+                                "id": "#TC-1",
+                                "title": "In-app Transfer"
+                            }
+                        },
+                        {
+                            "type": "reply",
+                            "reply": {
+                                "id": "#TC-2",
+                                "title": "Bank Transfer"
+                            }
+                        },
+                        {
+                            "type": "reply",
+                            "reply": {
+                                "id": "#TC-2",
+                                "title": "Bank Transfer"
+                            }
+                        }
+                    ]
+                }
+            },
+        },
+        {
+            headers: {
+                'Authorization': `Bearer ${process.env.WHATSAPP_TOKEN}`,
+                'Content-Type': 'application/json'
+            },
+        }
+    )
+    console.log(res.data)
+}
+
+const sendLocationRequestMessage = async () => {
+    const res = await axios.post(
+        'https://graph.facebook.com/v22.0/758418894023527/messages',
+        {
+            messaging_product: "whatsapp",
+            to: "2348104259226",
+            type: "interactive",
+            "interactive": {
+                "type": "location_request_message",
+                "body": {
+                    "text": "Your order will be delivered to you in a bit. You can share your address *manually* or *share your Location* so we could get to you easily"
+                },
+                "action": {
+                    "name": "send_location"
+                }
+            },
+        },
+        {
+            headers: {
+                'Authorization': `Bearer ${process.env.WHATSAPP_TOKEN}`,
+                'Content-Type': 'application/json'
+            },
+        }
+    )
+    console.log(res.data)
+}
+
 // sendTemplateMessage()
 // sendTextMessage()
 // sendMediaMessage()
 // uploadImage()
-sendInteractiveMessage()
+// sendInteractiveListMessage()
+// sendInteractiveReplyButtonMessage()
+sendLocationRequestMessage()
 
 
 // const hashPassword = async (password: string) => {

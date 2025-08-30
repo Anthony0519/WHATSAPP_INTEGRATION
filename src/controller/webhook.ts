@@ -97,6 +97,10 @@ export const webhook: RequestHandler = (req, res) => {
               const text = (message as any)?.text?.body ?? (message as any)?.text;
               console.log('Text message body:', text);
               // TODO: respond or route to your bot logic
+            } else if (msgType === 'location') {
+              const text = `Location received: lat=${message.location?.latitude} long=${message.location?.longitude}`;
+              console.log(text);
+              // TODO: respond or route to your bot logic
             } else {
               console.log('Other message type received:', msgType, message);
             }
