@@ -413,7 +413,7 @@ export const sendSurveyMessage = async () => {
     console.log(res.data)
 }
 
-export const sendTemplateMessage = async ()=>{
+export const sendUnhandledMessageRes = async ()=>{
 const res = await axios.post(
     'https://graph.facebook.com/v22.0/758418894023527/messages',
     {
