@@ -15,7 +15,7 @@ export const sendWelcomeListMessage = async () => {
             interactive: {
                 "type": "list",
                 "body": {
-                    "text": "“Hi 👋 I'm Tony's Whatsapp Assistant Bolt. How can I help today?”"
+                    "text": "“Hi 👋 I'm Tony's Whatsapp Assistant Bot. How can I help today?”"
                 },
                 "footer": {
                     "text": "Tap the option below to select a response."

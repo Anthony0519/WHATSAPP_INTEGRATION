@@ -282,7 +282,7 @@ export const webhook: RequestHandler = (req, res) => {
             const lat = message.location?.latitude;
             const long = message.location?.longitude;
             console.log(`Location received: lat=${lat} long=${long}`);
-            void sendTextMessage(`Location received 📍 (${lat}, ${long}).\nWe will use this for delivery.`);
+            void sendTextMessage(`Location received, We will use this for delivery.`);
             continue;
           }
 
