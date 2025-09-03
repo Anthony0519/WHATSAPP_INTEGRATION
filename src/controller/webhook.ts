@@ -49,7 +49,8 @@ export const webhook: RequestHandler = (req, res) => {
       return;
     }
 
-    console.log('Webhook event:', JSON.stringify(body, null, 2));
+    // console.log('Webhook event:', JSON.stringify(body, null, 2));
+    console.log('Webhook event Received');
 
     const entries = Array.isArray(body.entry) ? body.entry : [body.entry].filter(Boolean);
 
