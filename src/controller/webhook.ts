@@ -127,9 +127,6 @@ export const webhook: RequestHandler = (req, res) => {
               case 'INIT-#2':
                 void sendProductListMessage();
                 break;
-              case 'INIT-#3':
-                void sendLocationRequest('Please share your location for delivery.');
-                break;
               case 'INIT-#4':
                 void sendTextMessage('Please enter your Order ID to track (e.g., ORD-123).');
                 break;
@@ -153,6 +150,7 @@ export const webhook: RequestHandler = (req, res) => {
                 void (async () => {
                   try {
                     await sendTextMessage('✅ Order confirmed. We will process and notify you with tracking info.');
+                    await sendLocationRequest('Please share your location for delivery.')
                   } catch (e) {
                     console.error('Error sending confirmation text', e);
                   }
@@ -176,17 +174,17 @@ export const webhook: RequestHandler = (req, res) => {
               // Product selections (from your product list)
               case 'PP-#1':
                 setContext(String(messageId), 'quantity', { productId: 'PP-#1', label: 'Red T-Shirt', price: 4500 }, 120);
-                void sendTextMessage('You selected *Red T-Shirt* — ₦4,500.\nReply with the quantity or tap Confirm.');
+                void sendTextMessage('You selected *Red T-Shirt* — ₦4,500.\ntap Confirm to proceed to delivery.');
                 void sendOrderComfirmation();
                 break;
               case 'PP-#2':
                 setContext(String(messageId), 'quantity', { productId: 'PP-#1', label: 'Blue jeans', price: 7200 }, 120);
-                void sendTextMessage('You selected *Blue Jeans* — ₦7,200.\nReply with the quantity or tap Confirm.');
+                void sendTextMessage('You selected *Blue Jeans* — ₦7,200.\ntap Confirm to proceed to delivery.');
                 void sendOrderComfirmation();
                 break;
               case 'PP-#3':
                 setContext(String(messageId), 'quantity', { productId: 'PP-#1', label: 'Sneakers', price: 15000 }, 120);
-                void sendTextMessage('You selected *Sneakers* — ₦15,000.\nReply with the quantity or tap Confirm.');
+                void sendTextMessage('You selected *Sneakers* — ₦15,000.\ntap Confirm to proceed to delivery.');
                 void sendOrderComfirmation();
                 break;
 
@@ -223,25 +221,25 @@ export const webhook: RequestHandler = (req, res) => {
             const ctx = waId ? getContext(String(waId)) : null;
 
             // If user is expected to send quantity, handle numeric input as quantity
-            if (ctx?.expecting === 'quantity') {
-              // Accept only reasonable quantity values
-              if (/^\d+$/.test(trimmed)) {
-                const qty = parseInt(trimmed, 10);
-                if (qty > 0 && qty <= 100) {
-                  // process the order: you have ctx.data.productId, etc.
-                  const product = ctx.data;
-                  clearContext(String(waId));
-                  void sendTextMessage(`Quantity set to ${qty} for ${product.label}. Tap Confirm to place order.`);
-                  void sendOrderComfirmation();
-                } else {
-                  void sendTextMessage('Please enter a valid quantity (1-100).');
-                }
-              } else {
-                // Not a numeric reply while quantity expected — remind the user
-                void sendTextMessage('Please reply with a numeric quantity (e.g., "2"), or tap Cancel to go back.');
-              }
-              continue;
-            }
+            // if (ctx?.expecting === 'quantity') {
+            //   // Accept only reasonable quantity values
+            //   if (/^\d+$/.test(trimmed)) {
+            //     const qty = parseInt(trimmed, 10);
+            //     if (qty > 0 && qty <= 100) {
+            //       // process the order: you have ctx.data.productId, etc.
+            //       const product = ctx.data;
+            //       clearContext(String(waId));
+            //       void sendTextMessage(`Quantity set to ${qty} for ${product.label}. Tap Confirm to place order.`);
+            //       void sendOrderComfirmation();
+            //     } else {
+            //       void sendTextMessage('Please enter a valid quantity (1-100).');
+            //     }
+            //   } else {
+            //     // Not a numeric reply while quantity expected — remind the user
+            //     void sendTextMessage('Please reply with a numeric quantity (e.g., "2"), or tap Cancel to go back.');
+            //   }
+            //   continue;
+            // }
 
             const isGreeting = /^(hi|hello|hey)\b/i.test(trimmed);
             const isRestart = /^\s*(restart|start)\b/i.test(trimmed);
@@ -276,7 +274,6 @@ export const webhook: RequestHandler = (req, res) => {
             const long = message.location?.longitude;
             console.log(`Location received: lat=${lat} long=${long}`);
             void sendTextMessage(`Location received 📍 (${lat}, ${long}).\nWe will use this for delivery.`);
-            void sendOrderComfirmation();
             continue;
           }
 
