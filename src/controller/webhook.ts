@@ -11,7 +11,8 @@ import {
   sendTextMessage,
   sendFAQ_List,
   sendSurveyMessage,
-  sendUnhandledMessageRes
+  sendUnhandledMessageRes,
+  sendReceiveOption
 } from '../services/messages';
 import { setContext, getContext, clearContext } from '../helpers/context';
 
@@ -149,17 +150,25 @@ export const webhook: RequestHandler = (req, res) => {
               case 'CO-#1':
                 void (async () => {
                   try {
-                    await sendTextMessage('✅ Order confirmed. We will process and notify you with tracking info.');
-                    await sendLocationRequest('Please share your location for delivery.')
+                    await sendTextMessage('✅ Order confirmed. Please choose a delivey option.');
+                    await sendReceiveOption();
                   } catch (e) {
                     console.error('Error sending confirmation text', e);
                   }
                 })();
                 break;
               case 'CO-#2':
-                void sendTextMessage('Order cancelled. If you need anything else tap Back to Menu.');
+                void sendTextMessage('Order cancelled. If you need anything else send Restart to go back to main menu.');
                 break;
 
+              // Recieve option
+              case 'RO-#1':
+                void sendTextMessage('You chose to pick up the order yourself. Please visit our store to collect your items. send Restart to go back to main menu.');
+                break;
+              case 'RO-#2':
+                void sendLocationRequest('Please share your location for delivery.')
+                break;
+              
               // Survey
               case 'SUR-#1':
                 void sendTextMessage('Thanks for the feedback! 😊 Would you like to leave a short comment?');

@@ -42,15 +42,6 @@ export const sendWelcomeListMessage = async () => {
                             ]
                         },
                         {
-                            "title": "location",
-                            "rows": [
-                                {
-                                    "id": "INIT-#3",
-                                    "title": "Share Location",
-                                }
-                            ]
-                        },
-                        {
                             "title": "orders",
                             "rows": [
                                 {
@@ -435,4 +426,50 @@ const res = await axios.post(
     }
 )
 console.log(res.data)
+}
+
+export const sendReceiveOption = async () => {
+    const res = await axios.post(
+        'https://graph.facebook.com/v22.0/758418894023527/messages',
+        {
+            messaging_product: "whatsapp",
+            to: "2348104259226",
+            type: "interactive",
+            "interactive": {
+                "type": "button",
+                "header": {
+                    "type": "text",
+                    "text": "Delivery Type"
+                },
+                "body": {
+                    "text": "How would you like to get your product?"
+                },
+                "action": {
+                    "buttons": [
+                        {
+                            "type": "reply",
+                            "reply": {
+                                "id": "RO-#1",
+                                "title": "PICK UP"
+                            }
+                        },
+                        {
+                            "type": "reply",
+                            "reply": {
+                                "id": "RO-#2",
+                                "title": "DELIVERY"
+                            }
+                        },
+                    ]
+                }
+            },
+        },
+        {
+            headers: {
+                'Authorization': `Bearer ${process.env.WHATSAPP_TOKEN}`,
+                'Content-Type': 'application/json'
+            },
+        }
+    )
+    console.log(res.data)
 }
